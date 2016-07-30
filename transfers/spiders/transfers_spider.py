@@ -19,7 +19,7 @@ class TransfersSpiderSpider(scrapy.Spider):
     )
 
     def write_file(self):
-        with open("transfers.json", 'w+') as output_file:
+        with open("/var/www/html/transfers.json", 'w+') as output_file:
             json.dump(self.json_transfers, output_file, indent=4, sort_keys=True)
 
     def parse(self, response):
