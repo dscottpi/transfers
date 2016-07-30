@@ -50,5 +50,4 @@ class TransfersSpiderSpider(scrapy.Spider):
             self.json_transfers["transfers"][index] = json_transfer
 
         self.json_transfers["SIZE"] = len(self.json_transfers["transfers"]) - 1
-        print len(self.json_transfers)
         self.write_file()
