@@ -9,8 +9,7 @@ class TransfersSpiderSpider(scrapy.Spider):
     json_team_to = "TEAM_TO"
     json_price = "PRICE"
 
-    json_transfers = {}
-    json_transfers["transfers"] = {}
+    json_transfers = []
     base_url = "http://bbc.co.uk"
     name = "transfers_spider"
     allowed_domains = ["bbc.co.uk"]
@@ -47,7 +46,6 @@ class TransfersSpiderSpider(scrapy.Spider):
             json_transfer[self.json_team_from] = prev_team
             json_transfer[self.json_team_to] = new_team
             json_transfer[self.json_price] = price
-            self.json_transfers["transfers"][index] = json_transfer
+            self.json_transfers.append(json_transfer)
 
-        self.json_transfers["SIZE"] = len(self.json_transfers["transfers"]) - 1
         self.write_file()
