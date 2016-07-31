@@ -9,6 +9,7 @@ class TransfersSpiderSpider(scrapy.Spider):
     json_team_to = "TEAM_TO"
     json_price = "PRICE"
 
+    json_body = {}
     json_transfers = []
     base_url = "http://bbc.co.uk"
     name = "transfers_spider"
@@ -18,8 +19,8 @@ class TransfersSpiderSpider(scrapy.Spider):
     )
 
     def write_file(self):
-        with open("/var/www/html/transfers.json", 'w+') as output_file:
-            json.dump(self.json_transfers, output_file, indent=4, sort_keys=True)
+        with open("transfers.json", 'w+') as output_file:
+            json.dump(self.json_body, output_file, indent=4, sort_keys=True)
 
     def parse(self, response):
         transfers = response.xpath('//div[@id="story-body"]/p[not(@*) and a]').extract()
@@ -48,4 +49,5 @@ class TransfersSpiderSpider(scrapy.Spider):
             json_transfer[self.json_price] = price
             self.json_transfers.append(json_transfer)
 
+        self.json_body["transfers"] = self.json_transfers
         self.write_file()
